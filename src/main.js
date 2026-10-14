@@ -1,3 +1,6 @@
+const input = document.querySelector("#nombre-serie");
+const boton = document.querySelector("#boton-busqueda");
+
 async function obtenerSeries(nombre) {
   try {
       const respuesta = await fetch(`https://api.tvmaze.com/search/shows?q=${encodeURIComponent(nombre)}`);
@@ -19,7 +22,7 @@ function crearTarjeta(serie) {
     nombre.textContent = serie.name;
 
     const descripcion = document.createElement("p");
-    descripcion.textContent = serie.summary || "Sin descripción";
+    descripcion.innerHTML = serie.summary || "Sin descripción";
 
     const puntuacion = document.createElement("p");
     puntuacion.textContent =`Puntuación: ${serie.rating.average ?? "Sin puntuación"}`;
@@ -40,4 +43,12 @@ function mostrarSeries(series) {
         contenedor.append(tarjeta);
     }
 }
-obtenerSeries("The Flash").then(s => {mostrarSeries(s)});
+boton.addEventListener("click", async () => {
+    const nombre = input.value.trim();
+
+    if (nombre === "") {
+        return;
+    }
+    const series = await obtenerSeries(nombre);
+    mostrarSeries(series);
+});
