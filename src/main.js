@@ -12,5 +12,32 @@ async function obtenerSeries(nombre) {
       return [];
   }
 }
+function crearTarjeta(serie) {
+    const tarjeta = document.createElement("section");
 
-obtenerSeries("The Flash").then(s => {console.log(s)});
+    const nombre = document.createElement("h2");
+    nombre.textContent = serie.name;
+
+    const descripcion = document.createElement("p");
+    descripcion.textContent = serie.summary || "Sin descripción";
+
+    const puntuacion = document.createElement("p");
+    puntuacion.textContent =`Puntuación: ${serie.rating.average ?? "Sin puntuación"}`;
+
+    tarjeta.append(nombre);
+    tarjeta.append(descripcion);
+    tarjeta.append(puntuacion);
+
+    return tarjeta;
+}
+function mostrarSeries(series) {
+    const contenedor = document.querySelector("#resultados");
+
+    contenedor.replaceChildren();
+
+    for (const serie of series) {
+        const tarjeta = crearTarjeta(serie);
+        contenedor.append(tarjeta);
+    }
+}
+obtenerSeries("The Flash").then(s => {mostrarSeries(s)});
