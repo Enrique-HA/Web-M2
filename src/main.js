@@ -1,6 +1,7 @@
 const input = document.querySelector("#nombre-serie");
 const boton = document.querySelector("#boton-busqueda");
 const filtroGenero = document.querySelector("#filtro-genero");
+const contadorResultados = document.querySelector("#contador-resultados");
 let seriesEncontradas = [];
 
 async function obtenerSeries(nombre) {
@@ -23,6 +24,14 @@ function crearTarjeta(serie) {
     const nombre = document.createElement("h2");
     nombre.textContent = serie.name;
 
+    const imagen = document.createElement("img");
+    if (serie.image) {
+        imagen.src = serie.image.medium;
+        imagen.alt = `Portada de ${serie.name}`;
+    } else {
+        imagen.alt = "Imagen no disponible";
+    }
+
     const descripcion = document.createElement("p");
     descripcion.innerHTML = serie.summary || "Sin descripción";
 
@@ -30,6 +39,7 @@ function crearTarjeta(serie) {
     puntuacion.textContent =`Puntuación: ${serie.rating.average ?? "Sin puntuación"}`;
 
     tarjeta.append(nombre);
+    tarjeta.append(imagen);
     tarjeta.append(descripcion);
     tarjeta.append(puntuacion);
 
@@ -39,6 +49,8 @@ function mostrarSeries(series) {
     const contenedor = document.querySelector("#resultados");
 
     contenedor.replaceChildren();
+
+    contadorResultados.textContent =`Mostrando ${series.length} ${series.length === 1 ? "resultado" : "resultados"}`;
 
     for (const serie of series) {
         const tarjeta = crearTarjeta(serie);
