@@ -1,6 +1,6 @@
 # Busca-Serie
 
-Misión M1 · El Despertar del DOM — Web Development I.
+M2 · Async Odyssey — Web Development I.
 
 ## Funcionamiento
 Mediante un buscador puedes obtener información sobre series. Dicha información está sacada de TVmaze mediante una API
