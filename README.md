@@ -8,8 +8,9 @@ Mediante un buscador puedes obtener información sobre series. Dicha informació
 ## Uso de IA
 Usé chatGpt principalmente para las partes de css, ya que no estaba tan interesado en la parte de cómo se ve. 
 En el módulo de la api me ayudó con la sintaxis de localStorage; tenía claro la estructura de buscar al principio y registrar al final, pero 
-necesitaba ayuda con control de errores. En el módulo render me ayudó con comprobaciones como "serie.image?.medium", y también me ayudó a quitar la marca de html
-que la propia descripción de la serie traía
+necesitaba ayuda con control de errores ("A esta función quiero añadirle caché con localStorage. Quiero que antes de solicitar la info, mire si
+está en la caché, y quiero que al final, la registre para futuras consultas"). En el módulo render me ayudó con comprobaciones como "serie.image?.medium", y también me ayudó a quitar la marca de html que la propia descripción de la serie traía ("El campo descripción de esta api viene con <><> de tipo párrafo, cómo los
+quito sin usar innerHtml?")
 
 ## Autopsia
 1. En qué momento debe poder el usuario filtrar por género. Si lo podía hacer sin buscar, podría provocar fallos, y además la posible lista de géneros podría ser enorme.
