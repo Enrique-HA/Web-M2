@@ -28,6 +28,8 @@ boton.addEventListener("click", async () => {
         cargarGenerosPosibles([]);
         filtrarSeries([]);
         estado.textContent = "No se pudieron cargar las series. Inténtalo de nuevo.";
+    }finally {
+        boton.disabled = false;
     }
 });
 filtroGenero.addEventListener("change", () => {
