@@ -1,5 +1,7 @@
 const input = document.querySelector("#nombre-serie");
 const boton = document.querySelector("#boton-busqueda");
+const filtroGenero = document.querySelector("#filtro-genero");
+let seriesEncontradas = [];
 
 async function obtenerSeries(nombre) {
   try {
@@ -43,12 +45,43 @@ function mostrarSeries(series) {
         contenedor.append(tarjeta);
     }
 }
+function cargarGenerosPosibles(series) {
+    
+    const generos = series.map(serie => serie.genres).flat();
+
+    const generosUnicos = [...new Set(generos)];
+
+    filtroGenero.replaceChildren();
+
+    const opcionTodos = document.createElement("option");
+    opcionTodos.value = "";
+    opcionTodos.textContent = "Todos los géneros";
+    filtroGenero.append(opcionTodos);
+
+    for (const g of generosUnicos) {
+        const opcion = document.createElement("option");
+        opcion.value = g;
+        opcion.textContent = g;
+        filtroGenero.append(opcion);
+    }
+}
+function filtrarSeries() {
+    const generoSeleccionado = filtroGenero.value;
+
+    const seriesFiltradas = generoSeleccionado === "" ? seriesEncontradas : seriesEncontradas.filter(serie => serie.genres?.includes(generoSeleccionado));
+
+    mostrarSeries(seriesFiltradas);
+}
 boton.addEventListener("click", async () => {
     const nombre = input.value.trim();
 
     if (nombre === "") {
         return;
     }
-    const series = await obtenerSeries(nombre);
-    mostrarSeries(series);
+    seriesEncontradas = await obtenerSeries(nombre);
+    cargarGenerosPosibles(seriesEncontradas);
+    filtrarSeries();
+});
+filtroGenero.addEventListener("change", () => {
+    filtrarSeries();
 });
