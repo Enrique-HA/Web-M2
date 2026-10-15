@@ -15,6 +15,8 @@ boton.addEventListener("click", async () => {
         estado.textContent = "Escribe el nombre de una serie.";
         return;
     }
+    boton.disabled = true;
+    estado.textContent = "Buscando series...";
     try {
         seriesEncontradas = await obtenerSeries(nombre);
         cargarGenerosPosibles(seriesEncontradas);
@@ -22,6 +24,9 @@ boton.addEventListener("click", async () => {
 
         estado.textContent = seriesEncontradas.length ? "" : "No se encontraron series.";
     } catch (error) {
+        seriesEncontradas = [];
+        cargarGenerosPosibles([]);
+        filtrarSeries([]);
         estado.textContent = "No se pudieron cargar las series. Inténtalo de nuevo.";
     }
 });

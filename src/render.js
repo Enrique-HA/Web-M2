@@ -8,7 +8,7 @@ export function crearTarjeta(serie) {
     nombre.textContent = serie.name;
 
     const imagen = document.createElement("img");
-    if (serie.image) {
+    if (serie.image?.medium) {
         imagen.src = serie.image.medium;
         imagen.alt = `Portada de ${serie.name}`;
     } else {
@@ -16,10 +16,10 @@ export function crearTarjeta(serie) {
     }
 
     const descripcion = document.createElement("p");
-    descripcion.innerHTML = serie.summary || "Sin descripción";
+    descripcion.textContent = serie.summary ? serie.summary.replace(/<[^>]*>/g, "") : "Sin descripción";
 
     const puntuacion = document.createElement("p");
-    puntuacion.textContent =`Puntuación: ${serie.rating.average ?? "Sin puntuación"}`;
+    puntuacion.textContent =`Puntuación: ${serie.rating?.average ?? "Sin puntuación"}`;
 
     tarjeta.append(nombre);
     tarjeta.append(imagen);
